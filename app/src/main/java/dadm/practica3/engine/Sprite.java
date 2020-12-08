@@ -25,8 +25,8 @@ public abstract class Sprite extends ScreenGameObject {
 
         this.pixelFactor = gameEngine.pixelFactor;
 
-        this.width = (int) (spriteDrawable.getIntrinsicHeight() * this.pixelFactor);
-        this.height = (int) (spriteDrawable.getIntrinsicWidth() * this.pixelFactor);
+        this.width = (int) (spriteDrawable.getIntrinsicWidth() * this.pixelFactor);
+        this.height = (int) (spriteDrawable.getIntrinsicHeight() * this.pixelFactor);
 
         this.bitmap = ((BitmapDrawable) spriteDrawable).getBitmap();
 
@@ -44,6 +44,7 @@ public abstract class Sprite extends ScreenGameObject {
 
         Paint mPaint = new Paint();
         mPaint.setColor(Color.CYAN);
+        //canvas.drawRect((float)positionX,(float)positionY,(float)positionX+width,(float)positionY+height,mPaint);
         canvas.drawCircle((float)this.positionX,(float)this.positionY,(float)this.radius,mPaint);
 
         matrix.reset();

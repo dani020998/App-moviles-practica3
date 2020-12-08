@@ -185,4 +185,8 @@ public class GameEngine {
         // Also the sound manager
         soundManager.playSoundForGameEvent(gameEvent);
     }
+    public Activity getMainActivity(){
+        return mainActivity;
+    }
+
 }
