@@ -13,9 +13,8 @@ public class Bullet extends Sprite {
     private SpaceShipPlayer parent;
 
     public Bullet(GameEngine gameEngine){
-        super(gameEngine, new int[]{R.drawable.bullet}, new int[]{R.drawable.bullet});
-
-        speedFactor = gameEngine.pixelFactor * -300d / 1000d;
+        super(gameEngine, new int[]{R.drawable.fire_ball_yellow}, new int[]{R.drawable.fire_ball_green});
+        speedFactor = gameEngine.pixelFactor * 300d / 1000d;
     }
 
     @Override
@@ -23,8 +22,8 @@ public class Bullet extends Sprite {
 
     @Override
     public void onUpdate(long elapsedMillis, GameEngine gameEngine) {
-        positionY += speedFactor * elapsedMillis;
-        if (positionY < -height) {
+        positionX += speedFactor * elapsedMillis;
+        if (positionX > gameEngine.width) {
             gameEngine.removeGameObject(this);
             // And return it to the pool
             parent.releaseBullet(this);
@@ -36,6 +35,7 @@ public class Bullet extends Sprite {
         positionX = initPositionX - width/2;
         positionY = initPositionY - height/2;
         parent = parentPlayer;
+        this.color=parent.getColor();
     }
 
     private void removeObject(GameEngine gameEngine) {
@@ -46,10 +46,10 @@ public class Bullet extends Sprite {
 
     @Override
     public void onCollision(GameEngine gameEngine, ScreenGameObject otherObject) {
-        if (otherObject instanceof Asteroid) {
+        if (otherObject instanceof Bird && !((Bird) otherObject).getColor().equals(this.color)) {
             // Remove both from the game (and return them to their pools)
             removeObject(gameEngine);
-            Asteroid a = (Asteroid) otherObject;
+            Bird a = (Bird) otherObject;
             a.removeObject(gameEngine);
             gameEngine.onGameEvent(GameEvent.AsteroidHit);
             // Add some score

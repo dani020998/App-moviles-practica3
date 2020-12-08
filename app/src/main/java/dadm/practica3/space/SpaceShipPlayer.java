@@ -22,9 +22,9 @@ public class SpaceShipPlayer extends Sprite {
     private double speedFactor;
 
 
-    public SpaceShipPlayer(GameEngine gameEngine){
-        super(gameEngine, new int[]{R.drawable.plane_3_yellow},
-                new int[]{R.drawable.plane_3_green});
+    public SpaceShipPlayer(GameEngine gameEngine, int yellowTypePlane, int greenTypePlane){
+        super(gameEngine, new int[]{yellowTypePlane},
+                new int[]{greenTypePlane});
         speedFactor = pixelFactor * 100d / 1000d; // We want to move at 100px per second on a 400px tall screen
         maxX = gameEngine.width - width;
         maxY = gameEngine.height - height;
