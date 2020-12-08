@@ -18,8 +18,6 @@ public abstract class Sprite extends ScreenGameObject {
 
     protected double pixelFactor;
 
-    private String color = "green";
-
     private final Bitmap[] bitmapYellow;
 
     private final Bitmap[] bitmapGreen;
@@ -42,10 +40,13 @@ public abstract class Sprite extends ScreenGameObject {
         this.pixelFactor = gameEngine.pixelFactor;
 
         Drawable spriteDrawableYellow = r.getDrawable(drawableResYellow[0]);
-        Drawable spriteDrawableGreen = r.getDrawable(drawableResYellow[0]);
+        Drawable spriteDrawableGreen = r.getDrawable(drawableResGreen[0]);
 
-        this.height = (int) (spriteDrawableYellow.getIntrinsicHeight() * this.pixelFactor);
-        this.width = (int) (spriteDrawableGreen.getIntrinsicWidth() * this.pixelFactor);
+        this.greenHeight = (int) (spriteDrawableGreen.getIntrinsicHeight() * this.pixelFactor);
+        this.greenWidth= (int) (spriteDrawableGreen.getIntrinsicWidth() * this.pixelFactor);
+
+        this.yellowHeight = (int) (spriteDrawableYellow.getIntrinsicHeight() * this.pixelFactor);
+        this.yellowWidth= (int) (spriteDrawableYellow.getIntrinsicWidth() * this.pixelFactor);
 
         for(int i=0;i<drawableResYellow.length;i++){
             spriteDrawableYellow = r.getDrawable(drawableResYellow[i]);
@@ -54,15 +55,17 @@ public abstract class Sprite extends ScreenGameObject {
             this.bitmapYellow[i] = ((BitmapDrawable) spriteDrawableYellow).getBitmap();
             this.bitmapGreen[i] = ((BitmapDrawable) spriteDrawableGreen).getBitmap();
         }
-
-        radius = Math.max(height, width)/2;
     }
 
     public void setColor(String color){
         if(color.equals("green")){
             this.color="green";
+            this.width=this.greenWidth;
+            this.height=this.greenHeight;
         }else{
             this.color="yellow";
+            this.width=this.yellowWidth;
+            this.height=this.yellowHeight;
         }
     }
 

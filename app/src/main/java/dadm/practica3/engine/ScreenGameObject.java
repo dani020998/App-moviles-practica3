@@ -7,8 +7,15 @@ public abstract class ScreenGameObject extends GameObject {
     protected double positionX;
     protected double positionY;
 
+    protected int yellowWidth;
+    protected int yellowHeight;
+    protected int greenWidth;
+    protected int greenHeight;
+
     protected int width;
     protected int height;
+
+    protected String color="green";
 
     public double radius;
 
@@ -17,15 +24,24 @@ public abstract class ScreenGameObject extends GameObject {
     public Rect mBoundingRect = new Rect(-1, -1, -1, -1);
 
     public void onPostUpdate(GameEngine gameEngine) {
-        mBoundingRect.set(
-                (int) positionX,
-                (int) positionY,
-                (int) positionX + width,
-                (int) positionY + height);
+        if(this.color.equals("green")){
+            mBoundingRect.set(
+                    (int) positionX,
+                    (int) positionY,
+                    (int) positionX + greenWidth,
+                    (int) positionY + greenHeight);
+        }else{
+            mBoundingRect.set(
+                    (int) positionX,
+                    (int) positionY,
+                    (int) positionX + yellowWidth,
+                    (int) positionY + yellowHeight);
+        }
+
     }
 
     public boolean checkCollision(ScreenGameObject otherObject) {
-         return checkCircularCollision(otherObject);
+         return checkRectangularCollision(otherObject);
     }
 
     private boolean checkCircularCollision(ScreenGameObject other) {

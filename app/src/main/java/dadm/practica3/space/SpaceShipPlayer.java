@@ -23,10 +23,12 @@ public class SpaceShipPlayer extends Sprite {
 
 
     public SpaceShipPlayer(GameEngine gameEngine){
-        super(gameEngine, new int[]{R.drawable.ship}, new int[]{R.drawable.ship});
+        super(gameEngine, new int[]{R.drawable.plane_3_yellow},
+                new int[]{R.drawable.plane_3_green});
         speedFactor = pixelFactor * 100d / 1000d; // We want to move at 100px per second on a 400px tall screen
         maxX = gameEngine.width - width;
         maxY = gameEngine.height - height;
+        this.setColor("yellow");
 
         initBulletPool(gameEngine);
     }
@@ -97,7 +99,7 @@ public class SpaceShipPlayer extends Sprite {
 
     @Override
     public void onCollision(GameEngine gameEngine, ScreenGameObject otherObject) {
-        if (otherObject instanceof Bird) {
+        if (otherObject instanceof Bird && !((Bird) otherObject).getColor().equals(this.color)) {
             gameEngine.removeGameObject(this);
             //gameEngine.stopGame();
             Bird b = (Bird) otherObject;

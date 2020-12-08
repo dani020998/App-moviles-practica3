@@ -18,8 +18,6 @@ public class GameEngine {
     private List<GameObject> gameObjects = new ArrayList<GameObject>();
     private List<GameObject> objectsToAdd = new ArrayList<GameObject>();
     private List<GameObject> objectsToRemove = new ArrayList<GameObject>();
-    private List<Collision> detectedCollisions = new ArrayList<Collision>();
-    //private QuadTree quadTree = new QuadTree();
 
     private UpdateThread theUpdateThread;
     private DrawThread theDrawThread;
@@ -42,14 +40,11 @@ public class GameEngine {
         theGameView = gameView;
         theGameView.setGameObjects(this.gameObjects);
 
-        //QuadTree.init();
-
         this.width = theGameView.getWidth()
                 - theGameView.getPaddingRight() - theGameView.getPaddingLeft();
         this.height = theGameView.getHeight()
                 - theGameView.getPaddingTop() - theGameView.getPaddingTop();
 
-        //quadTree.setArea(new Rect(0, 0, width, height));
 
         this.pixelFactor = this.height / 400d;
     }
@@ -132,9 +127,6 @@ public class GameEngine {
             while (!objectsToRemove.isEmpty()) {
                 GameObject objectToRemove = objectsToRemove.remove(0);
                 gameObjects.remove(objectToRemove);
-                /*if (objectToRemove instanceof  ScreenGameObject) {
-                    quadTree.removeGameObject((ScreenGameObject) objectToRemove);
-                }*/
             }
             while (!objectsToAdd.isEmpty()) {
                 GameObject gameObject = objectsToAdd.remove(0);
@@ -175,19 +167,12 @@ public class GameEngine {
                 }
             }
         }
-        // Release the collisions from the previous step
-        /*while (!detectedCollisions.isEmpty()) {
-            Collision.release(detectedCollisions.remove(0));
-        }*/
-        //quadTree.checkCollisions(this, detectedCollisions);
     }
 
     private void addGameObjectNow (GameObject object) {
         gameObjects.add(object);
         if (object instanceof ScreenGameObject) {
             ScreenGameObject sgo = (ScreenGameObject) object;
-
-            //quadTree.addGameObject(sgo);
         }
     }
 
