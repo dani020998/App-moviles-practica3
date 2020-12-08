@@ -3,10 +3,11 @@
     <string name="title_activity_main">title</string>
     <string name="hello_world">Hello</string>
     <string name="pause">Game paused</string>
-    <string name="start">Start game</string>
-    <string name="game_title">game title</string>
-    <string name="pause_dialog_title">pause title</string>
-    <string name="pause_dialog_message">pause message</string>
-    <string name="resume">resume</string>
-    <string name="stop">stop</string>
+    <string name="start">Iniciar juego</string>
+    <string name="pause_dialog_title">Pausa</string>
+    <string name="pause_dialog_message">¿Desea cancelar la partida?</string>
+    <string name="resume">Continuar partida</string>
+    <string name="stop">Volver a inicio</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

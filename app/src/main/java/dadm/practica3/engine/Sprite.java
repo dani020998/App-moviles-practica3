@@ -89,6 +89,9 @@ public abstract class Sprite extends ScreenGameObject {
         /*Paint mPaint = new Paint();
         mPaint.setColor(Color.CYAN);
         canvas.drawCircle((float)this.positionX,(float)this.positionY,(float)this.radius,mPaint);*/
+        //canvas.drawRect((float)positionX,(float)positionY,(float)positionX+width,(float)positionY+height,mPaint);
+        //canvas.drawCircle((float)this.positionX,(float)this.positionY,(float)this.radius,mPaint);
+
 
         matrix.reset();
         matrix.postScale((float) pixelFactor, (float) pixelFactor);

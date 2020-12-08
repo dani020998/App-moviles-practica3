@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dadm.practica3.R;
+import dadm.practica3.ScaffoldActivity;
 import dadm.practica3.engine.GameEngine;
 import dadm.practica3.engine.ScreenGameObject;
 import dadm.practica3.engine.Sprite;
@@ -105,6 +106,9 @@ public class SpaceShipPlayer extends Sprite {
             Bird b = (Bird) otherObject;
             b.removeObject(gameEngine);
             gameEngine.onGameEvent(GameEvent.SpaceshipHit);
+            GameController aaa;
+            aaa=GameController.get_GameController();
+            GameController.get_GameController().FinJuego(gameEngine);
         }
     }
 }

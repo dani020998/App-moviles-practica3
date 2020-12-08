@@ -5,11 +5,15 @@ import android.graphics.Canvas;
 import java.util.ArrayList;
 import java.util.List;
 
+import dadm.practica3.ScaffoldActivity;
+import dadm.practica3.counter.PuntuacionFragment;
+import dadm.practica3.counter.GameFragment;
 import dadm.practica3.engine.GameEngine;
 import dadm.practica3.engine.GameObject;
 
 public class GameController extends GameObject {
 
+    private static GameController cont;
     private static final int TIME_BETWEEN_ENEMIES = 500;
     private long currentMillis;
     //private List<Asteroid> asteroidPool = new ArrayList<Asteroid>();
@@ -18,6 +22,7 @@ public class GameController extends GameObject {
     private int enemiesSpawned;
 
     public GameController(GameEngine gameEngine) {
+        cont=this;
         // We initialize the pool of items now
         /*for (int i=0; i<10; i++) {
             asteroidPool.add(new Asteroid(this, gameEngine));
@@ -72,5 +77,16 @@ public class GameController extends GameObject {
         }else{
             birdYellowPool.add(bird);
         }
+    }
+
+
+    public void FinJuego(GameEngine gameEngine){
+        gameEngine.stopGame();
+        ((ScaffoldActivity)gameEngine.getMainActivity()).startPuntuaciones();
+    }
+
+    public static GameController get_GameController()
+    {
+        return cont;
     }
 }
