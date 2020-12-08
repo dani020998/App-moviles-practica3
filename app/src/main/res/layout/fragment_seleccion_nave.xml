@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".counter.SeleccionNaveFragment">
+
+
+    <LinearLayout
+        android:id="@+id/Layout_FragSeleccionNave"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/hangar"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/Txt_SeleccionNave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:gravity="center"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:text="Seleccion de Naves"
+            android:textColor="#FFFFFF"
+            android:textSize="60sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="131dp"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/RBTN_Nave1"
+                    android:layout_width="133dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/plane_1_yellow"
+                    android:text="RadioButton"
+                    android:textSize="0.0sp" />
+
+                <RadioButton
+                    android:id="@+id/RBTN_Nave2"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/plane_2_yellow"
+                    android:text="RadioButton"
+                    android:textSize="0.0sp" />
+
+                <RadioButton
+                    android:id="@+id/RBTN_Nave3"
+                    android:layout_width="127dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/plane_3_yellow"
+                    android:text="RadioButton"
+                    android:textSize="0.0sp" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/Btn_SeleccionNaveVolver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="#FFFFFF"
+            android:text="Volver a Inicio" />
+    </LinearLayout>
+
+</FrameLayout>

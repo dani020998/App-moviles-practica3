@@ -9,6 +9,7 @@ import android.view.View;
 import dadm.practica3.counter.GameFragment;
 import dadm.practica3.counter.PuntuacionFragment;
 import dadm.practica3.counter.MainMenuFragment;
+import dadm.practica3.counter.SeleccionNaveFragment;
 import dadm.practica3.sound.SoundManager;
 
 public class ScaffoldActivity extends AppCompatActivity {
@@ -42,6 +43,11 @@ public class ScaffoldActivity extends AppCompatActivity {
     public void startMenuInicio() {
         // Navigate the the game fragment, which makes the start automatically
         navigateToFragment( new MainMenuFragment());
+    }
+
+    public void startSeleccionNave() {
+        // Navigate the the game fragment, which makes the start automatically
+        navigateToFragment( new SeleccionNaveFragment());
     }
 
     public void startPuntuaciones() {
