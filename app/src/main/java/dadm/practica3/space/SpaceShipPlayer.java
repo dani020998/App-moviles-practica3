@@ -23,7 +23,7 @@ public class SpaceShipPlayer extends Sprite {
 
 
     public SpaceShipPlayer(GameEngine gameEngine){
-        super(gameEngine, R.drawable.ship);
+        super(gameEngine, new int[]{R.drawable.ship}, new int[]{R.drawable.ship});
         speedFactor = pixelFactor * 100d / 1000d; // We want to move at 100px per second on a 400px tall screen
         maxX = gameEngine.width - width;
         maxY = gameEngine.height - height;
@@ -97,11 +97,11 @@ public class SpaceShipPlayer extends Sprite {
 
     @Override
     public void onCollision(GameEngine gameEngine, ScreenGameObject otherObject) {
-        if (otherObject instanceof Asteroid) {
+        if (otherObject instanceof Bird) {
             gameEngine.removeGameObject(this);
             //gameEngine.stopGame();
-            Asteroid a = (Asteroid) otherObject;
-            a.removeObject(gameEngine);
+            Bird b = (Bird) otherObject;
+            b.removeObject(gameEngine);
             gameEngine.onGameEvent(GameEvent.SpaceshipHit);
         }
     }

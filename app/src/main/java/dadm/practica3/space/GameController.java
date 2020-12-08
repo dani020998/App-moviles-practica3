@@ -12,13 +12,21 @@ public class GameController extends GameObject {
 
     private static final int TIME_BETWEEN_ENEMIES = 500;
     private long currentMillis;
-    private List<Asteroid> asteroidPool = new ArrayList<Asteroid>();
+    //private List<Asteroid> asteroidPool = new ArrayList<Asteroid>();
+    private List<Bird> birdYellowPool = new ArrayList<Bird>();
+    private List<Bird> birdGreenPool = new ArrayList<Bird>();
     private int enemiesSpawned;
 
     public GameController(GameEngine gameEngine) {
         // We initialize the pool of items now
-        for (int i=0; i<10; i++) {
+        /*for (int i=0; i<10; i++) {
             asteroidPool.add(new Asteroid(this, gameEngine));
+        }*/
+        for(int i=0; i<10;i++){
+            birdYellowPool.add(new Bird(this, gameEngine, "yellow"));
+        }
+        for(int i=0; i<10;i++){
+            birdGreenPool.add(new Bird(this, gameEngine, "green"));
         }
     }
 
@@ -35,9 +43,19 @@ public class GameController extends GameObject {
         long waveTimestamp = enemiesSpawned*TIME_BETWEEN_ENEMIES;
         if (currentMillis > waveTimestamp) {
             // Spawn a new enemy
-            Asteroid a = asteroidPool.remove(0);
+            /*Asteroid a = asteroidPool.remove(0);
             a.init(gameEngine);
             gameEngine.addGameObject(a);
+            enemiesSpawned++;
+            return;*/
+            Bird b;
+            if(gameEngine.random.nextDouble()<0.5){
+                b = birdYellowPool.remove(0);
+            }else{
+                b = birdGreenPool.remove(0);
+            }
+            b.init(gameEngine);
+            gameEngine.addGameObject(b);
             enemiesSpawned++;
             return;
         }
@@ -48,7 +66,11 @@ public class GameController extends GameObject {
         // This game object does not draw anything
     }
 
-    public void returnToPool(Asteroid asteroid) {
-        asteroidPool.add(asteroid);
+    public void returnToPool(Bird bird) {
+        if(bird.getColor().equals("green")){
+            birdGreenPool.add(bird);
+        }else{
+            birdYellowPool.add(bird);
+        }
     }
 }

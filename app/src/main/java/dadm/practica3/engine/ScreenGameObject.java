@@ -36,4 +36,8 @@ public abstract class ScreenGameObject extends GameObject {
         return squareDistance <= collisionDistance*collisionDistance;
     }
 
+    private boolean checkRectangularCollision(ScreenGameObject other){
+        return Rect.intersects(mBoundingRect, other.mBoundingRect);
+    }
+
 }

@@ -6,8 +6,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
 public abstract class Sprite extends ScreenGameObject {
 
@@ -15,22 +18,60 @@ public abstract class Sprite extends ScreenGameObject {
 
     protected double pixelFactor;
 
-    private final Bitmap bitmap;
+    private String color = "green";
+
+    private final Bitmap[] bitmapYellow;
+
+    private final Bitmap[] bitmapGreen;
+
+    private int currentStep = 0;
+
+    private long currentTime=0;
+
+
+    private AnimationDrawable spriteAnimation;
 
     private final Matrix matrix = new Matrix();
 
-    protected Sprite (GameEngine gameEngine, int drawableRes) {
-        Resources r = gameEngine.getContext().getResources();
-        Drawable spriteDrawable = r.getDrawable(drawableRes);
+    protected Sprite (GameEngine gameEngine, int[] drawableResYellow, int[] drawableResGreen) {
 
+        Resources r = gameEngine.getContext().getResources();
+        this.bitmapYellow = new Bitmap[drawableResYellow.length];
+
+        this.bitmapGreen = new Bitmap[drawableResGreen.length];
         this.pixelFactor = gameEngine.pixelFactor;
 
-        this.width = (int) (spriteDrawable.getIntrinsicHeight() * this.pixelFactor);
-        this.height = (int) (spriteDrawable.getIntrinsicWidth() * this.pixelFactor);
+        Drawable spriteDrawableYellow = r.getDrawable(drawableResYellow[0]);
+        Drawable spriteDrawableGreen = r.getDrawable(drawableResYellow[0]);
 
-        this.bitmap = ((BitmapDrawable) spriteDrawable).getBitmap();
+        this.height = (int) (spriteDrawableYellow.getIntrinsicHeight() * this.pixelFactor);
+        this.width = (int) (spriteDrawableGreen.getIntrinsicWidth() * this.pixelFactor);
+
+        for(int i=0;i<drawableResYellow.length;i++){
+            spriteDrawableYellow = r.getDrawable(drawableResYellow[i]);
+            spriteDrawableGreen = r.getDrawable(drawableResGreen[i]);
+
+            this.bitmapYellow[i] = ((BitmapDrawable) spriteDrawableYellow).getBitmap();
+            this.bitmapGreen[i] = ((BitmapDrawable) spriteDrawableGreen).getBitmap();
+        }
 
         radius = Math.max(height, width)/2;
+    }
+
+    public void setColor(String color){
+        if(color.equals("green")){
+            this.color="green";
+        }else{
+            this.color="yellow";
+        }
+    }
+
+    public String getColor(){
+        return this.color;
+    }
+
+    public void setCurrentTime(long time){
+        this.currentTime+=time;
     }
 
     @Override
@@ -42,14 +83,25 @@ public abstract class Sprite extends ScreenGameObject {
             return;
         }
 
-        Paint mPaint = new Paint();
+        /*Paint mPaint = new Paint();
         mPaint.setColor(Color.CYAN);
-        canvas.drawCircle((float)this.positionX,(float)this.positionY,(float)this.radius,mPaint);
+        canvas.drawCircle((float)this.positionX,(float)this.positionY,(float)this.radius,mPaint);*/
 
         matrix.reset();
         matrix.postScale((float) pixelFactor, (float) pixelFactor);
         matrix.postTranslate((float) positionX, (float) positionY);
         matrix.postRotate((float) rotation, (float) (positionX + width/2), (float) (positionY + height/2));
-        canvas.drawBitmap(bitmap, matrix, null);
+        if(this.color.equals("green")){
+            canvas.drawBitmap(bitmapGreen[currentStep], matrix, null);
+        }else{
+            canvas.drawBitmap(bitmapYellow[currentStep], matrix, null);
+        }
+        if(this.currentTime>250){
+            currentStep++;
+            if(currentStep==bitmapGreen.length){
+                currentStep=0;
+            }
+            this.currentTime=0;
+        }
     }
 }
