@@ -1,5 +1,6 @@
 package dadm.practica3.counter;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -54,7 +55,8 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                 theGameEngine.setSoundManager(getScaffoldActivity().getSoundManager());
                 theGameEngine.setTheInputController(new JoystickInputController(getView()));
                 theGameEngine.addGameObject(new GameController(theGameEngine,frag));
-                theGameEngine.addGameObject(new SpaceShipPlayer(theGameEngine, R.drawable.plane_2_yellow, R.drawable.plane_2_green));
+
+                theGameEngine.addGameObject(new SpaceShipPlayer(theGameEngine, SeleccionNaveFragment.getNave_yellow(), SeleccionNaveFragment.getNave_green()));
                 theGameEngine.addGameObject(new FramesPerSecondCounter(theGameEngine));
                 theGameEngine.startGame();
             }

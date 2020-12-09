@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 
 import dadm.practica3.BaseFragment;
 import dadm.practica3.R;
@@ -22,9 +23,12 @@ public class SeleccionNaveFragment extends BaseFragment implements View.OnClickL
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static int[] nave_seleccionada = new int[2];;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private RadioButton ArrayRadioButton[] = new RadioButton[3];;
 
     public SeleccionNaveFragment() {
         // Required empty public constructor
@@ -42,19 +46,8 @@ public class SeleccionNaveFragment extends BaseFragment implements View.OnClickL
     public static SeleccionNaveFragment newInstance(String param1, String param2) {
         SeleccionNaveFragment fragment = new SeleccionNaveFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -67,11 +60,61 @@ public class SeleccionNaveFragment extends BaseFragment implements View.OnClickL
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ArrayRadioButton[0]=view.findViewById(R.id.RBTN_Nave1);
+        ArrayRadioButton[1]=view.findViewById(R.id.RBTN_Nave2);
+        ArrayRadioButton[2]=view.findViewById(R.id.RBTN_Nave3);
         view.findViewById(R.id.Btn_SeleccionNaveVolver).setOnClickListener(this);
+
+        switch (nave_seleccionada[0]){
+            case R.drawable.plane_1_green:
+                ((RadioButton) view.findViewById(R.id.RBTN_Nave1)).setChecked(true);
+                break;
+            case R.drawable.plane_2_green:
+                ((RadioButton) view.findViewById(R.id.RBTN_Nave2)).setChecked(true);
+                break;
+            case R.drawable.plane_3_green:
+                ((RadioButton) view.findViewById(R.id.RBTN_Nave3)).setChecked(true);
+                break;
+            default:
+                ((RadioButton) view.findViewById(R.id.RBTN_Nave1)).setChecked(true);
+                break;
+        }
+    }
+
+    public static void Inicializar_aviones()
+    {
+        nave_seleccionada[0]=R.drawable.plane_1_green;
+        nave_seleccionada[1]=R.drawable.plane_1_yellow;
     }
 
     @Override
     public void onClick(View view) {
+        for (int i=0;i<3;i++){
+            if(ArrayRadioButton[i].isChecked()){
+                switch (i){
+                    case 0:
+                        nave_seleccionada[0]=R.drawable.plane_1_green;
+                        nave_seleccionada[1]=R.drawable.plane_1_yellow;
+                    break;
+                    case 1:
+                        nave_seleccionada[0]=R.drawable.plane_2_green;
+                        nave_seleccionada[1]=R.drawable.plane_2_yellow;
+                    break;
+                    case 2:
+                        nave_seleccionada[0]=R.drawable.plane_3_green;
+                        nave_seleccionada[1]=R.drawable.plane_3_yellow;
+                    break;
+                }
+                i=3;
+            }
+        }
         ((ScaffoldActivity)getActivity()).startMenuInicio();
+    }
+
+    public static int getNave_green(){
+        return nave_seleccionada[0];
+    }
+    public static int getNave_yellow(){
+        return nave_seleccionada[1];
     }
 }

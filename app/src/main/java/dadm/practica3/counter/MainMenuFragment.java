@@ -26,6 +26,7 @@ public class MainMenuFragment extends BaseFragment implements View.OnClickListen
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.btn_start).setOnClickListener(this);
         view.findViewById(R.id.btn_seleccionNave).setOnClickListener(this);
+        SeleccionNaveFragment.Inicializar_aviones();
     }
 
     @Override

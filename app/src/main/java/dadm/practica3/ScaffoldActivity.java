@@ -15,9 +15,9 @@ import dadm.practica3.sound.SoundManager;
 public class ScaffoldActivity extends AppCompatActivity {
 
     private static final String TAG_FRAGMENT = "content";
+    private static ScaffoldActivity myGameActivity = null;
 
     private SoundManager soundManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +74,11 @@ public class ScaffoldActivity extends AppCompatActivity {
     public void navigateBack() {
         // Do a push on the navigation history
         super.onBackPressed();
+    }
+
+    public static ScaffoldActivity GetActivity()
+    {
+        return myGameActivity;
     }
 
     @Override
