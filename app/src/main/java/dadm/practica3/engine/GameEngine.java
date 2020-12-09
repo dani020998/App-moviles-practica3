@@ -11,6 +11,7 @@ import java.util.Random;
 import dadm.practica3.input.InputController;
 import dadm.practica3.sound.GameEvent;
 import dadm.practica3.sound.SoundManager;
+import dadm.practica3.space.SpaceShipPlayer;
 
 public class GameEngine {
 
@@ -18,6 +19,7 @@ public class GameEngine {
     private List<GameObject> gameObjects = new ArrayList<GameObject>();
     private List<GameObject> objectsToAdd = new ArrayList<GameObject>();
     private List<GameObject> objectsToRemove = new ArrayList<GameObject>();
+    SpaceShipPlayer spaceShipPlayer;
 
     private UpdateThread theUpdateThread;
     private DrawThread theDrawThread;
@@ -96,6 +98,24 @@ public class GameEngine {
         }
         if (theDrawThread != null) {
             theDrawThread.resumeGame();
+        }
+    }
+
+    public void addSpaceShip(SpaceShipPlayer s){
+        spaceShipPlayer=s;
+        if (isRunning()) {
+            objectsToAdd.add(s);
+        } else {
+            addGameObjectNow(s);
+        }
+        mainActivity.runOnUiThread(s.onAddedRunnable);
+    }
+
+    public void setSpaceShipPlayerColor(){
+        if(spaceShipPlayer.getColor().equals("green")){
+            spaceShipPlayer.setColor("yellow");
+        }else{
+            spaceShipPlayer.setColor("green");
         }
     }
 

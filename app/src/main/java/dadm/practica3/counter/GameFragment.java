@@ -43,6 +43,8 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
         textPutuacion= (TextView)view.findViewById(R.id.Txt_Puntuacion);
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.btn_play_pause).setOnClickListener(this);
+        view.findViewById(R.id.btn_shoot).setOnClickListener(this);
+        view.findViewById(R.id.btn_changeColor).setOnClickListener(this);
         final ViewTreeObserver observer = view.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener(){
             @Override
@@ -56,7 +58,7 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                 theGameEngine.setTheInputController(new JoystickInputController(getView()));
                 theGameEngine.addGameObject(new GameController(theGameEngine,frag));
 
-                theGameEngine.addGameObject(new SpaceShipPlayer(theGameEngine, SeleccionNaveFragment.getNave_yellow(), SeleccionNaveFragment.getNave_green()));
+                theGameEngine.addSpaceShip(new SpaceShipPlayer(theGameEngine, SeleccionNaveFragment.getNave_yellow(), SeleccionNaveFragment.getNave_green()));
                 theGameEngine.addGameObject(new FramesPerSecondCounter(theGameEngine));
                 theGameEngine.startGame();
             }
@@ -67,8 +69,15 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btn_play_pause) {
-            pauseGameAndShowPauseDialog();
+        switch (v.getId()){
+            case R.id.btn_play_pause:
+                pauseGameAndShowPauseDialog();
+                break;
+            case R.id.btn_changeColor:
+                theGameEngine.setSpaceShipPlayerColor();
+                break;
+            case R.id.btn_shoot:
+                break;
         }
     }
 

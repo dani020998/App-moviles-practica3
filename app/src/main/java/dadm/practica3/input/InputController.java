@@ -8,7 +8,7 @@ public class InputController {
     public double verticalFactor;
 
     public boolean isFiring;
-
+    public boolean isChangingColor;
     //endregion
 
     //region ||| Public methods |||

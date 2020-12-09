@@ -14,7 +14,7 @@ import dadm.practica3.sound.GameEvent;
 public class SpaceShipPlayer extends Sprite {
 
     private static final int INITIAL_BULLET_POOL_AMOUNT = 6;
-    private static final long TIME_BETWEEN_BULLETS = 250;
+    private static final long TIME_BETWEEN_BULLETS = 700;
     List<Bullet> bullets = new ArrayList<Bullet>();
     private long timeSinceLastFire;
 
@@ -83,7 +83,7 @@ public class SpaceShipPlayer extends Sprite {
     }
 
     private void checkFiring(long elapsedMillis, GameEngine gameEngine) {
-        if (gameEngine.theInputController.isFiring && timeSinceLastFire > TIME_BETWEEN_BULLETS) {
+        if (timeSinceLastFire > TIME_BETWEEN_BULLETS) {
             Bullet bullet = getBullet();
             if (bullet == null) {
                 return;

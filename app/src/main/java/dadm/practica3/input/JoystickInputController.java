@@ -2,6 +2,7 @@ package dadm.practica3.input;
 
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 import dadm.practica3.R;
 
@@ -14,7 +15,7 @@ public class JoystickInputController extends InputController {
 
     public JoystickInputController(View view) {
         view.findViewById(R.id.joystick_main).setOnTouchListener(new JoystickTouchListener());
-        view.findViewById(R.id.joystick_touch).setOnTouchListener(new FireButtonTouchListener());
+        //view.findViewById(R.id.joystick_touch).setOnTouchListener(new FireButtonTouchListener());
 
         double pixelFactor = view.getHeight() / 400d;
         maxDistance = 50*pixelFactor;
