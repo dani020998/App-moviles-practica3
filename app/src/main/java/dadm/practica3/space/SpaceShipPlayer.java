@@ -14,13 +14,17 @@ import dadm.practica3.sound.GameEvent;
 public class SpaceShipPlayer extends Sprite {
 
     private static final int INITIAL_BULLET_POOL_AMOUNT = 6;
+    private static final int INITIAL_TORPEDO_POOL_AMOUNT = 3;
     private static final long TIME_BETWEEN_BULLETS = 700;
+    private static final long TIME_BETWEEN_TORPEDOS = 5000;
     List<Bullet> bullets = new ArrayList<Bullet>();
-    private long timeSinceLastFire;
+    List<Torpedo> torpedoes = new ArrayList<Torpedo>();
+    private long timeSinceLastBulletFire, timeSinceLastTorpedoFire;
 
     private int maxX;
     private int maxY;
     private double speedFactor;
+    private boolean shootTorpedo;
 
 
     public SpaceShipPlayer(GameEngine gameEngine, int yellowTypePlane, int greenTypePlane){
@@ -29,6 +33,8 @@ public class SpaceShipPlayer extends Sprite {
         speedFactor = pixelFactor * 100d / 1000d; // We want to move at 100px per second on a 400px tall screen
         maxX = gameEngine.width - width;
         maxY = gameEngine.height - height;
+        shootTorpedo=false;
+        timeSinceLastTorpedoFire=TIME_BETWEEN_TORPEDOS;
         this.setColor("yellow");
 
         initBulletPool(gameEngine);
@@ -37,6 +43,9 @@ public class SpaceShipPlayer extends Sprite {
     private void initBulletPool(GameEngine gameEngine) {
         for (int i=0; i<INITIAL_BULLET_POOL_AMOUNT; i++) {
             bullets.add(new Bullet(gameEngine,GameController.get_GameController()));
+        }
+        for(int i=0; i<INITIAL_TORPEDO_POOL_AMOUNT; i++){
+            torpedoes.add(new Torpedo(gameEngine, GameController.get_GameController()));
         }
     }
 
@@ -47,10 +56,29 @@ public class SpaceShipPlayer extends Sprite {
         return bullets.remove(0);
     }
 
+    private Torpedo getTorpedo(){
+        if(torpedoes.isEmpty()){
+            return null;
+        }
+        return torpedoes.remove(0);
+    }
+
     void releaseBullet(Bullet bullet) {
         bullets.add(bullet);
     }
+    void releaseTorpedo(Torpedo torpedo) { torpedoes.add(torpedo); }
 
+    public void shootTorpedo(){
+        shootTorpedo=true;
+    }
+
+    public long getTimeBetweenTorpedoes(){
+        return TIME_BETWEEN_TORPEDOS;
+    }
+
+    public long getTimeSinceLastTorpedoFire(){
+        return timeSinceLastTorpedoFire;
+    }
 
     @Override
     public void startGame() {
@@ -62,7 +90,8 @@ public class SpaceShipPlayer extends Sprite {
     public void onUpdate(long elapsedMillis, GameEngine gameEngine) {
         // Get the info from the inputController
         updatePosition(elapsedMillis, gameEngine.theInputController);
-        checkFiring(elapsedMillis, gameEngine);
+        fireBullet(elapsedMillis, gameEngine);
+        fireTorpedo(elapsedMillis, gameEngine);
     }
 
     private void updatePosition(long elapsedMillis, InputController inputController) {
@@ -82,19 +111,37 @@ public class SpaceShipPlayer extends Sprite {
         }
     }
 
-    private void checkFiring(long elapsedMillis, GameEngine gameEngine) {
-        if (timeSinceLastFire > TIME_BETWEEN_BULLETS) {
+    private void fireBullet(long elapsedMillis, GameEngine gameEngine) {
+        if (timeSinceLastBulletFire > TIME_BETWEEN_BULLETS) {
             Bullet bullet = getBullet();
             if (bullet == null) {
                 return;
             }
-            bullet.init(this, positionX + width/2, positionY);
+            bullet.init(this, positionX + width, positionY+height/2);
             gameEngine.addGameObject(bullet);
-            timeSinceLastFire = 0;
+            timeSinceLastBulletFire = 0;
             gameEngine.onGameEvent(GameEvent.LaserFired);
         }
         else {
-            timeSinceLastFire += elapsedMillis;
+            timeSinceLastBulletFire += elapsedMillis;
+        }
+    }
+
+    private void fireTorpedo(long elapsedMillis, GameEngine gameEngine){
+        if(shootTorpedo){
+            for(int i=0;i<3;i++){
+                Torpedo torpedo = getTorpedo();
+                if(torpedo==null){
+                    return;
+                }
+                torpedo.init(this, positionX + width, positionY+height/2, i);
+                gameEngine.addGameObject(torpedo);
+                timeSinceLastTorpedoFire=0;
+                shootTorpedo=false;
+            }
+
+        }else{
+            timeSinceLastTorpedoFire+=elapsedMillis;
         }
     }
 

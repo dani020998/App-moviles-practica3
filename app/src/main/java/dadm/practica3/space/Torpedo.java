@@ -9,16 +9,18 @@ import dadm.practica3.engine.ScreenGameObject;
 import dadm.practica3.engine.Sprite;
 import dadm.practica3.sound.GameEvent;
 
-public class Bullet extends Sprite {
+public class Torpedo extends Sprite {
 
-    private double speedFactor;
+    private double speedFactorX, speedFactorY;
+    private int id;
 
     private SpaceShipPlayer parent;
     GameController GameController;
 
-    public Bullet(GameEngine gameEngine, GameController GameCon){
-        super(gameEngine, new int[]{R.drawable.fire_ball_yellow}, new int[]{R.drawable.fire_ball_green});
-        speedFactor = gameEngine.pixelFactor * 300d / 1000d;
+    public Torpedo(GameEngine gameEngine, GameController GameCon){
+        super(gameEngine, new int[]{R.drawable.torpedo_yellow}, new int[]{R.drawable.torpedo_green});
+        speedFactorX = gameEngine.pixelFactor * 300d / 1000d;
+        speedFactorY = gameEngine.pixelFactor * 100d / 1000d;
         GameController=GameCon;
     }
 
@@ -27,26 +29,35 @@ public class Bullet extends Sprite {
 
     @Override
     public void onUpdate(long elapsedMillis, GameEngine gameEngine) {
-        positionX += speedFactor * elapsedMillis;
+        positionX += speedFactorX * elapsedMillis;
+        switch (id){
+            case 0:
+                positionY += speedFactorY * elapsedMillis;
+                break;
+            case 1:
+                positionY -= speedFactorY * elapsedMillis;
+                break;
+        }
         if (positionX > gameEngine.width) {
             gameEngine.removeGameObject(this);
             // And return it to the pool
-            parent.releaseBullet(this);
+            parent.releaseTorpedo(this);
         }
     }
 
 
-    public void init(SpaceShipPlayer parentPlayer, double initPositionX, double initPositionY) {
+    public void init(SpaceShipPlayer parentPlayer, double initPositionX, double initPositionY, int id) {
         positionX = initPositionX + width/2;
         positionY = initPositionY + height/2;
         parent = parentPlayer;
+        this.id=id;
         this.color=parent.getColor();
     }
 
     private void removeObject(GameEngine gameEngine) {
         gameEngine.removeGameObject(this);
         // And return it to the pool
-        parent.releaseBullet(this);
+        parent.releaseTorpedo(this);
     }
 
     @Override

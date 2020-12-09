@@ -55,6 +55,10 @@ public class GameEngine {
         theInputController = inputController;
     }
 
+    public SpaceShipPlayer getSpaceShipPlayer(){
+        return spaceShipPlayer;
+    }
+
     public void startGame() {
         // Stop a game if it is running
         stopGame();

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.Space;
 import android.widget.TextView;
 
 import dadm.practica3.BaseFragment;
@@ -77,6 +78,10 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                 theGameEngine.setSpaceShipPlayerColor();
                 break;
             case R.id.btn_shoot:
+                SpaceShipPlayer spaceShipPlayer = theGameEngine.getSpaceShipPlayer();
+                if(spaceShipPlayer.getTimeSinceLastTorpedoFire() > spaceShipPlayer.getTimeBetweenTorpedoes()){
+                    spaceShipPlayer.shootTorpedo();
+                }
                 break;
         }
     }
