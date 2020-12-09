@@ -63,7 +63,6 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                 theGameEngine.setSoundManager(getScaffoldActivity().getSoundManager());
                 theGameEngine.setTheInputController(new JoystickInputController(getView()));
                 theGameEngine.addGameObject(new GameController(theGameEngine,frag));
-                theGameEngine.addSpaceShip(new SpaceShipPlayer(theGameEngine, SeleccionNaveFragment.getNave_yellow(), SeleccionNaveFragment.getNave_green()));
                 theGameEngine.addGameObject(new nube(theGameEngine,"yellow",0));
                 theGameEngine.addGameObject(new nube(theGameEngine,"yellow",1));
                 theGameEngine.addGameObject(new montana1(theGameEngine,"yellow",0));
@@ -72,9 +71,9 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                 theGameEngine.addGameObject(new montana2(theGameEngine,"yellow",1));
                 theGameEngine.addGameObject(new montana3(theGameEngine,"yellow",0));
                 theGameEngine.addGameObject(new montana3(theGameEngine,"yellow",1));
-                theGameEngine.addGameObject(new SpaceShipPlayer(theGameEngine, SeleccionNaveFragment.getNave_yellow(), SeleccionNaveFragment.getNave_green()));
                 theGameEngine.addGameObject(new estela(theGameEngine,"yellow",0));
                 theGameEngine.addGameObject(new estela(theGameEngine,"yellow",1));
+                theGameEngine.addSpaceShip(new SpaceShipPlayer(theGameEngine, SeleccionNaveFragment.getNave_yellow(), SeleccionNaveFragment.getNave_green()));
                 theGameEngine.addGameObject(new FramesPerSecondCounter(theGameEngine));
                 theGameEngine.startGame();
             }
