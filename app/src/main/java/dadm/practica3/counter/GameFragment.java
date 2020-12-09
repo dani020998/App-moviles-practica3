@@ -23,7 +23,6 @@ import dadm.practica3.space.SpaceShipPlayer;
 
 public class GameFragment extends BaseFragment implements View.OnClickListener {
     private GameEngine theGameEngine;
-    public View currentView;
     public TextView textPutuacion;
     private static GameFragment frag;
 
@@ -39,7 +38,6 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        currentView=view;
         frag=this;
         textPutuacion= (TextView)view.findViewById(R.id.Txt_Puntuacion);
         super.onViewCreated(view, savedInstanceState);
@@ -126,7 +124,6 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
-    public View GetCurrentView(){return currentView;}
 
     private void playOrPause() {
         Button button = (Button) getView().findViewById(R.id.btn_play_pause);

@@ -5,10 +5,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import dadm.practica3.BaseFragment;
 import dadm.practica3.R;
 import dadm.practica3.ScaffoldActivity;
+import dadm.practica3.space.GameController;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,6 +70,8 @@ public class PuntuacionFragment extends BaseFragment implements View.OnClickList
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.Btn_Volver).setOnClickListener(this);
+        ((TextView) view.findViewById(R.id.Txt_PuntuacionFinal)).setText(""+GameController.get_GameController().getPuntuacion());
+
     }
 
     @Override
