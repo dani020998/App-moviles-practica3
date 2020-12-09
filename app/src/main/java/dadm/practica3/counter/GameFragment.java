@@ -20,6 +20,11 @@ import dadm.practica3.engine.GameView;
 import dadm.practica3.input.JoystickInputController;
 import dadm.practica3.space.GameController;
 import dadm.practica3.space.SpaceShipPlayer;
+import dadm.practica3.space.estela;
+import dadm.practica3.space.montana1;
+import dadm.practica3.space.montana2;
+import dadm.practica3.space.montana3;
+import dadm.practica3.space.nube;
 
 
 public class GameFragment extends BaseFragment implements View.OnClickListener {
@@ -56,7 +61,17 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                 theGameEngine.setTheInputController(new JoystickInputController(getView()));
                 theGameEngine.addGameObject(new GameController(theGameEngine,frag));
 
+                theGameEngine.addGameObject(new nube(theGameEngine,"yellow",0));
+                theGameEngine.addGameObject(new nube(theGameEngine,"yellow",1));
+                theGameEngine.addGameObject(new montana1(theGameEngine,"yellow",0));
+                theGameEngine.addGameObject(new montana1(theGameEngine,"yellow",1));
+                theGameEngine.addGameObject(new montana2(theGameEngine,"yellow",0));
+                theGameEngine.addGameObject(new montana2(theGameEngine,"yellow",1));
+                theGameEngine.addGameObject(new montana3(theGameEngine,"yellow",0));
+                theGameEngine.addGameObject(new montana3(theGameEngine,"yellow",1));
                 theGameEngine.addGameObject(new SpaceShipPlayer(theGameEngine, SeleccionNaveFragment.getNave_yellow(), SeleccionNaveFragment.getNave_green()));
+                theGameEngine.addGameObject(new estela(theGameEngine,"yellow",0));
+                theGameEngine.addGameObject(new estela(theGameEngine,"yellow",1));
                 theGameEngine.addGameObject(new FramesPerSecondCounter(theGameEngine));
                 theGameEngine.startGame();
             }

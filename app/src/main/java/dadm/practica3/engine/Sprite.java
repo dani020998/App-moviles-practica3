@@ -27,6 +27,9 @@ public abstract class Sprite extends ScreenGameObject {
     private long currentTime=0;
 
 
+    private int Spritewidth=0;
+
+
     private AnimationDrawable spriteAnimation;
 
     private final Matrix matrix = new Matrix();
@@ -55,6 +58,8 @@ public abstract class Sprite extends ScreenGameObject {
             this.bitmapYellow[i] = ((BitmapDrawable) spriteDrawableYellow).getBitmap();
             this.bitmapGreen[i] = ((BitmapDrawable) spriteDrawableGreen).getBitmap();
         }
+
+        Spritewidth= spriteDrawableGreen.getIntrinsicWidth();
     }
 
     public void setColor(String color){
@@ -109,5 +114,8 @@ public abstract class Sprite extends ScreenGameObject {
             }
             this.currentTime=0;
         }
+    }
+    public int getwidth(){
+        return Spritewidth;
     }
 }
