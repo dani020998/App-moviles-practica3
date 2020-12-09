@@ -14,6 +14,9 @@ import dadm.practica3.engine.GameObject;
 public class GameController extends GameObject {
 
     private static GameController cont;
+    //private static GameFragment frag;
+    public GameFragment frag;
+    private int puntuacion=0;
     private static final int TIME_BETWEEN_ENEMIES = 500;
     private long currentMillis;
     //private List<Asteroid> asteroidPool = new ArrayList<Asteroid>();
@@ -21,8 +24,9 @@ public class GameController extends GameObject {
     private List<Bird> birdGreenPool = new ArrayList<Bird>();
     private int enemiesSpawned;
 
-    public GameController(GameEngine gameEngine) {
+    public GameController(GameEngine gameEngine, GameFragment GameFrag) {
         cont=this;
+        frag=GameFrag;
         // We initialize the pool of items now
         /*for (int i=0; i<10; i++) {
             asteroidPool.add(new Asteroid(this, gameEngine));
@@ -79,6 +83,9 @@ public class GameController extends GameObject {
         }
     }
 
+    public void anadir_puntuacion(){
+        puntuacion+=50;
+    }
 
     public void FinJuego(GameEngine gameEngine){
         gameEngine.stopGame();
@@ -88,5 +95,10 @@ public class GameController extends GameObject {
     public static GameController get_GameController()
     {
         return cont;
+    }
+    //public static GameFragment get_GameFragment(){return frag;}
+
+    public int getPuntuacion(){
+        return puntuacion;
     }
 }

@@ -1,6 +1,9 @@
 package dadm.practica3.space;
 
+import android.widget.TextView;
+
 import dadm.practica3.R;
+import dadm.practica3.counter.GameFragment;
 import dadm.practica3.engine.GameEngine;
 import dadm.practica3.engine.ScreenGameObject;
 import dadm.practica3.engine.Sprite;
@@ -11,10 +14,12 @@ public class Bullet extends Sprite {
     private double speedFactor;
 
     private SpaceShipPlayer parent;
+    GameController GameController;
 
-    public Bullet(GameEngine gameEngine){
+    public Bullet(GameEngine gameEngine, GameController GameCon){
         super(gameEngine, new int[]{R.drawable.fire_ball_yellow}, new int[]{R.drawable.fire_ball_green});
         speedFactor = gameEngine.pixelFactor * 300d / 1000d;
+        GameController=GameCon;
     }
 
     @Override
@@ -52,7 +57,10 @@ public class Bullet extends Sprite {
             Bird a = (Bird) otherObject;
             a.removeObject(gameEngine);
             gameEngine.onGameEvent(GameEvent.AsteroidHit);
+
             // Add some score
+            GameController.anadir_puntuacion();
+            GameController.frag.CambioPuntuacion("Puntuacion: "+ GameController.getPuntuacion());
         }
     }
 }

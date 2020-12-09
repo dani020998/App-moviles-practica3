@@ -36,7 +36,7 @@ public class SpaceShipPlayer extends Sprite {
 
     private void initBulletPool(GameEngine gameEngine) {
         for (int i=0; i<INITIAL_BULLET_POOL_AMOUNT; i++) {
-            bullets.add(new Bullet(gameEngine));
+            bullets.add(new Bullet(gameEngine,GameController.get_GameController()));
         }
     }
 

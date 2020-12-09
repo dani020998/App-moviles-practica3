@@ -21,6 +21,15 @@
         android:layout_height="wrap_content"
         android:text="@string/pause" />
 
-    <include layout="@layout/view_joystick"/>
+    <include layout="@layout/view_joystick" />
+
+    <TextView
+        android:id="@+id/Txt_Puntuacion"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:text="Puntuacion: 0" />
 
 </FrameLayout>

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.TextView;
 
 import dadm.practica3.BaseFragment;
 import dadm.practica3.R;
@@ -22,6 +23,9 @@ import dadm.practica3.space.SpaceShipPlayer;
 
 public class GameFragment extends BaseFragment implements View.OnClickListener {
     private GameEngine theGameEngine;
+    public View currentView;
+    public TextView textPutuacion;
+    private static GameFragment frag;
 
     public GameFragment() {
     }
@@ -35,6 +39,9 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        currentView=view;
+        frag=this;
+        textPutuacion= (TextView)view.findViewById(R.id.Txt_Puntuacion);
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.btn_play_pause).setOnClickListener(this);
         final ViewTreeObserver observer = view.getViewTreeObserver();
@@ -48,9 +55,9 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                 theGameEngine = new GameEngine(getActivity(), gameView);
                 theGameEngine.setSoundManager(getScaffoldActivity().getSoundManager());
                 theGameEngine.setTheInputController(new JoystickInputController(getView()));
+                theGameEngine.addGameObject(new GameController(theGameEngine,frag));
                 theGameEngine.addGameObject(new SpaceShipPlayer(theGameEngine, R.drawable.plane_2_yellow, R.drawable.plane_2_green));
                 theGameEngine.addGameObject(new FramesPerSecondCounter(theGameEngine));
-                theGameEngine.addGameObject(new GameController(theGameEngine));
                 theGameEngine.startGame();
             }
         });
@@ -119,6 +126,8 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
+    public View GetCurrentView(){return currentView;}
+
     private void playOrPause() {
         Button button = (Button) getView().findViewById(R.id.btn_play_pause);
         if (theGameEngine.isPaused()) {
@@ -130,4 +139,8 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
             button.setText(R.string.resume);
         }
     }
+    public void CambioPuntuacion(String newText){
+        textPutuacion.setText(newText);
+    }
+
 }
