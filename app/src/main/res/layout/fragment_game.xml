@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#6BD1DD"
     android:orientation="vertical"
     tools:context="dadm.practica3.counter.GameFragment">
 
@@ -13,12 +13,12 @@
         android:layout_height="match_parent" />
 
     <Button
-        android:layout_gravity="top|right"
         android:id="@+id/btn_play_pause"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
         android:text="@string/pause" />
 
     <include layout="@layout/view_joystick" />
@@ -27,9 +27,9 @@
         android:id="@+id/Txt_Puntuacion"
         android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:text="Puntuacion: 0" />
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="Puntuacion: 0"
+        android:textSize="20dp" />
 
 </FrameLayout>
