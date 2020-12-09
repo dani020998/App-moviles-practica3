@@ -82,7 +82,7 @@ public class SpaceShipPlayer extends Sprite {
 
     @Override
     public void startGame() {
-        positionX = maxX / 2;
+        positionX = maxX / 6;
         positionY = maxY / 2;
     }
 
