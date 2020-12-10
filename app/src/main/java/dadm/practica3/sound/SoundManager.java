@@ -25,7 +25,8 @@ public final class SoundManager {
 	public SoundManager(Context context) {
 		this.context = context;
 		loadSounds();
-		loadMusic();
+		//loadMusic();
+		bgPlayer = new MediaPlayer();
 	}
 
 	private void loadEventSound(Context context, GameEvent event, String... filename) {
@@ -52,12 +53,18 @@ public final class SoundManager {
 		loadEventSound(context, GameEvent.AsteroidHit, "Asteroid_explosion_1.wav");
 		loadEventSound(context, GameEvent.SpaceshipHit, "Spaceship_explosion.wav");
 		loadEventSound(context, GameEvent.LaserFired, "Laser_shoot.wav");
+		loadEventSound(context, GameEvent.HitBird, "bird_sound.wav");
+		loadEventSound(context, GameEvent.BulletFired, "bullet_shoot.mp3");
+		loadEventSound(context, GameEvent.ButtonSound, "button_touch.wav");
+		loadEventSound(context, GameEvent.GameOver, "game_over.wav");
+		loadEventSound(context, GameEvent.HitPlane, "plane_impact.wav");
+		loadEventSound(context, GameEvent.TorpedoFired, "torpedo_shoot.wav");
 	}
 
 	private void loadMusic() {
 		try {
 			// Important to not reuse it. It can be on a strange state
-			bgPlayer = new MediaPlayer();
+			bgPlayer.stop();
 			AssetFileDescriptor afd = context.getAssets().openFd("sfx/Riccardo_Colombo_-_11_-_Something_mental.mp3");
 			bgPlayer.setDataSource(afd.getFileDescriptor(),
 					afd.getStartOffset(), afd.getLength());
@@ -93,8 +100,12 @@ public final class SoundManager {
 		soundsMap.clear();		
 	}
 
-	private void unloadMusic() {
-		bgPlayer.stop();
-		bgPlayer.release();
+	private void unloadMenuMusic() {
+		bgPlayerMenu.stop();
+		bgPlayerMenu.release();
+	}
+
+	private void unloadGameMusic(){
+
 	}
 }

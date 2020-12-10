@@ -16,28 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
-
-        <ImageButton
-            android:id="@+id/btn_shoot"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/game_button"
-            android:src="@mipmap/ic_shoot_foreground"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btn_changeColor"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/game_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_shoot"
-            app:srcCompat="@android:drawable/ic_menu_edit" />
     </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>

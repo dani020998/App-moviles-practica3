@@ -16,10 +16,11 @@ public class SpaceShipPlayer extends Sprite {
     private static final int INITIAL_BULLET_POOL_AMOUNT = 6;
     private static final int INITIAL_TORPEDO_POOL_AMOUNT = 3;
     private static final long TIME_BETWEEN_BULLETS = 700;
-    private static final long TIME_BETWEEN_TORPEDOS = 5000;
+    //private static final long TIME_BETWEEN_TORPEDOS = 5000;
     List<Bullet> bullets = new ArrayList<Bullet>();
     List<Torpedo> torpedoes = new ArrayList<Torpedo>();
     private long timeSinceLastBulletFire, timeSinceLastTorpedoFire;
+    private GameController gameController;
 
     private int maxX;
     private int maxY;
@@ -35,7 +36,7 @@ public class SpaceShipPlayer extends Sprite {
         maxX = gameEngine.width - width;
         maxY = gameEngine.height - height;
         shootTorpedo=false;
-        timeSinceLastTorpedoFire=TIME_BETWEEN_TORPEDOS;
+        //timeSinceLastTorpedoFire=TIME_BETWEEN_TORPEDOS;
         this.setColor("yellow");
         vidas=3;
         initBulletPool(gameEngine);
@@ -73,9 +74,9 @@ public class SpaceShipPlayer extends Sprite {
         shootTorpedo=true;
     }
 
-    public long getTimeBetweenTorpedoes(){
+    /*public long getTimeBetweenTorpedoes(){
         return TIME_BETWEEN_TORPEDOS;
-    }
+    }*/
 
     public long getTimeSinceLastTorpedoFire(){
         return timeSinceLastTorpedoFire;
@@ -93,6 +94,9 @@ public class SpaceShipPlayer extends Sprite {
         updatePosition(elapsedMillis, gameEngine.theInputController);
         fireBullet(elapsedMillis, gameEngine);
         fireTorpedo(elapsedMillis, gameEngine);
+        /*if(timeSinceLastTorpedoFire > TIME_BETWEEN_TORPEDOS){
+            GameController.get_GameController().frag.CanShoot();
+        }*/
     }
 
     private void updatePosition(long elapsedMillis, InputController inputController) {
@@ -121,7 +125,7 @@ public class SpaceShipPlayer extends Sprite {
             bullet.init(this, positionX + width, positionY+height/2);
             gameEngine.addGameObject(bullet);
             timeSinceLastBulletFire = 0;
-            gameEngine.onGameEvent(GameEvent.LaserFired);
+            gameEngine.onGameEvent(GameEvent.BulletFired);
         }
         else {
             timeSinceLastBulletFire += elapsedMillis;
@@ -138,6 +142,7 @@ public class SpaceShipPlayer extends Sprite {
                 torpedo.init(this, positionX + width, positionY+height/2, i);
                 gameEngine.addGameObject(torpedo);
                 timeSinceLastTorpedoFire=0;
+                gameEngine.onGameEvent(GameEvent.TorpedoFired);
                 shootTorpedo=false;
             }
 
@@ -152,12 +157,14 @@ public class SpaceShipPlayer extends Sprite {
             //gameEngine.stopGame();
             Bird b = (Bird) otherObject;
             b.removeObject(gameEngine);
-            gameEngine.onGameEvent(GameEvent.SpaceshipHit);
             vidas-=1;
             GameController.get_GameController().frag.Actualizar_vida(vidas);
             if(vidas==0) {
                 gameEngine.removeGameObject(this);
                 GameController.get_GameController().FinJuego(gameEngine);
+                gameEngine.onGameEvent(GameEvent.GameOver);
+            }else{
+                gameEngine.onGameEvent(GameEvent.HitPlane);
             }
 
         }

@@ -24,7 +24,7 @@ public class GameEngine {
     private UpdateThread theUpdateThread;
     private DrawThread theDrawThread;
     public InputController theInputController;
-    private final GameView theGameView;
+    private GameView theGameView;
 
     public Random random = new Random();
 

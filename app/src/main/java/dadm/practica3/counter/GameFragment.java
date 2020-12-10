@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Space;
 import android.widget.TextView;
@@ -31,8 +33,11 @@ import dadm.practica3.space.nube;
 
 public class GameFragment extends BaseFragment implements View.OnClickListener {
     private GameEngine theGameEngine;
+    private static final long TIME_BETWEEN_TORPEDOS = 5000;
+    private static final long TIME_BETWEEN_CHANGE_COLOR = 1000;
     public TextView textPutuacion;
     public ImageView img_vida3, img_vida2, img_vida1;
+    public ImageButton btn_pause, btn_changeColor, btn_shoot;
     private static GameFragment frag;
 
     public GameFragment() {
@@ -53,9 +58,12 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
         img_vida2= (ImageView) view.findViewById(R.id.img_vida2);
         img_vida3= (ImageView) view.findViewById(R.id.img_vida3);
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.btn_play_pause).setOnClickListener(this);
-        view.findViewById(R.id.btn_shoot).setOnClickListener(this);
-        view.findViewById(R.id.btn_changeColor).setOnClickListener(this);
+        btn_pause=view.findViewById(R.id.btn_play_pause);
+        btn_shoot=view.findViewById(R.id.btn_shoot);
+        btn_changeColor=view.findViewById(R.id.btn_changeColor);
+        btn_pause.setOnClickListener(this);
+        btn_shoot.setOnClickListener(this);
+        btn_changeColor.setOnClickListener(this);
         final ViewTreeObserver observer = view.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener(){
             @Override
@@ -79,7 +87,6 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                 theGameEngine.addGameObject(new estela(theGameEngine,"yellow",0));
                 theGameEngine.addGameObject(new estela(theGameEngine,"yellow",1));
                 theGameEngine.addSpaceShip(new SpaceShipPlayer(theGameEngine, SeleccionNaveFragment.getNave_yellow(), SeleccionNaveFragment.getNave_green()));
-                theGameEngine.addGameObject(new FramesPerSecondCounter(theGameEngine));
                 theGameEngine.startGame();
             }
         });
@@ -95,12 +102,33 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.btn_changeColor:
                 theGameEngine.setSpaceShipPlayerColor();
+                new CountDownTimer(TIME_BETWEEN_CHANGE_COLOR, 1000){
+                    @Override
+                    public void onTick(long l) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        btn_changeColor.setEnabled(true);
+                    }
+                }.start();
                 break;
             case R.id.btn_shoot:
                 SpaceShipPlayer spaceShipPlayer = theGameEngine.getSpaceShipPlayer();
-                if(spaceShipPlayer.getTimeSinceLastTorpedoFire() > spaceShipPlayer.getTimeBetweenTorpedoes()){
-                    spaceShipPlayer.shootTorpedo();
-                }
+                spaceShipPlayer.shootTorpedo();
+                btn_shoot.setEnabled(false);
+                new CountDownTimer(TIME_BETWEEN_TORPEDOS, 1000){
+                    @Override
+                    public void onTick(long l) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        btn_shoot.setEnabled(true);
+                    }
+                }.start();
                 break;
         }
     }
@@ -161,14 +189,12 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
 
 
     private void playOrPause() {
-        Button button = (Button) getView().findViewById(R.id.btn_play_pause);
+        ImageButton button = (ImageButton) getView().findViewById(R.id.btn_play_pause);
         if (theGameEngine.isPaused()) {
             theGameEngine.resumeGame();
-            button.setText(R.string.pause);
         }
         else {
             theGameEngine.pauseGame();
-            button.setText(R.string.resume);
         }
     }
     public void CambioPuntuacion(String newText){

@@ -67,7 +67,7 @@ public class Torpedo extends Sprite {
             removeObject(gameEngine);
             Bird a = (Bird) otherObject;
             a.removeObject(gameEngine);
-            gameEngine.onGameEvent(GameEvent.AsteroidHit);
+            gameEngine.onGameEvent(GameEvent.HitBird);
 
             // Add some score
             GameController.anadir_puntuacion(gameEngine);

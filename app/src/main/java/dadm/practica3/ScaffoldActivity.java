@@ -10,6 +10,7 @@ import dadm.practica3.counter.GameFragment;
 import dadm.practica3.counter.PuntuacionFragment;
 import dadm.practica3.counter.MainMenuFragment;
 import dadm.practica3.counter.SeleccionNaveFragment;
+import dadm.practica3.sound.GameEvent;
 import dadm.practica3.sound.SoundManager;
 
 public class ScaffoldActivity extends AppCompatActivity {
