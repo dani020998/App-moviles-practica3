@@ -31,6 +31,7 @@ public class MainMenuFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+
         switch(v.getId())
         {
             case R.id.btn_start:

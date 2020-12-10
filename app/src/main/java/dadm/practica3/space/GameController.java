@@ -17,25 +17,23 @@ public class GameController extends GameObject {
     //private static GameFragment frag;
     public GameFragment frag;
     private int puntuacion=0;
-    private static final int TIME_BETWEEN_ENEMIES = 500;
-    private long currentMillis;
+    private static final int TIME_BETWEEN_ENEMIES_MIN = 200;
+    private static final int TIME_BETWEEN_ENEMIES_MAX = 700;
+    private long currentMillis, waveTimeGreen, waveTimeYellow;
     //private List<Asteroid> asteroidPool = new ArrayList<Asteroid>();
     private List<Bird> birdYellowPool = new ArrayList<Bird>();
     private List<Bird> birdGreenPool = new ArrayList<Bird>();
-    private int enemiesSpawned;
     private int puntuacionVictoria=2000;
 
     public GameController(GameEngine gameEngine, GameFragment GameFrag) {
         cont=this;
         frag=GameFrag;
-        // We initialize the pool of items now
-        /*for (int i=0; i<10; i++) {
-            asteroidPool.add(new Asteroid(this, gameEngine));
-        }*/
-        for(int i=0; i<10;i++){
+        waveTimeGreen=gameEngine.random.nextInt(TIME_BETWEEN_ENEMIES_MAX-TIME_BETWEEN_ENEMIES_MIN) + TIME_BETWEEN_ENEMIES_MIN;
+        waveTimeYellow=gameEngine.random.nextInt(TIME_BETWEEN_ENEMIES_MAX-TIME_BETWEEN_ENEMIES_MIN) + TIME_BETWEEN_ENEMIES_MIN;
+        for(int i=0; i<30;i++){
             birdYellowPool.add(new Bird(this, gameEngine, "yellow"));
         }
-        for(int i=0; i<10;i++){
+        for(int i=0; i<30;i++){
             birdGreenPool.add(new Bird(this, gameEngine, "green"));
         }
     }
@@ -43,31 +41,27 @@ public class GameController extends GameObject {
     @Override
     public void startGame() {
         currentMillis = 0;
-        enemiesSpawned = 0;
     }
 
     @Override
     public void onUpdate(long elapsedMillis, GameEngine gameEngine) {
         currentMillis += elapsedMillis;
 
-        long waveTimestamp = enemiesSpawned*TIME_BETWEEN_ENEMIES;
-        if (currentMillis > waveTimestamp) {
-            // Spawn a new enemy
-            /*Asteroid a = asteroidPool.remove(0);
-            a.init(gameEngine);
-            gameEngine.addGameObject(a);
-            enemiesSpawned++;
-            return;*/
+        if (currentMillis > waveTimeGreen) {
             Bird b;
-            if(gameEngine.random.nextDouble()<0.5){
-                b = birdYellowPool.remove(0);
-            }else{
-                b = birdGreenPool.remove(0);
-            }
+            b = birdGreenPool.remove(0);
             b.init(gameEngine);
             gameEngine.addGameObject(b);
-            enemiesSpawned++;
-            return;
+            waveTimeGreen = currentMillis +
+                    gameEngine.random.nextInt(TIME_BETWEEN_ENEMIES_MAX-TIME_BETWEEN_ENEMIES_MIN) + TIME_BETWEEN_ENEMIES_MIN;
+        }
+        if (currentMillis > waveTimeYellow) {
+            Bird b;
+            b = birdYellowPool.remove(0);
+            b.init(gameEngine);
+            gameEngine.addGameObject(b);
+            waveTimeYellow = currentMillis +
+                    gameEngine.random.nextInt(TIME_BETWEEN_ENEMIES_MAX-TIME_BETWEEN_ENEMIES_MIN) + TIME_BETWEEN_ENEMIES_MIN;
         }
     }
 

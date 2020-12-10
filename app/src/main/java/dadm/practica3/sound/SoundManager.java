@@ -21,12 +21,12 @@ public final class SoundManager {
 	private Context context;
 	private SoundPool soundPool;
 	private MediaPlayer bgPlayer;
+	private String currentSound;
 
 	public SoundManager(Context context) {
 		this.context = context;
+		this.currentSound = "";
 		loadSounds();
-		//loadMusic();
-		bgPlayer = new MediaPlayer();
 	}
 
 	private void loadEventSound(Context context, GameEvent event, String... filename) {
@@ -50,22 +50,23 @@ public final class SoundManager {
 	private void loadSounds() {
 		createSoundPool();
 		soundsMap = new HashMap<GameEvent, Integer>();
-		loadEventSound(context, GameEvent.AsteroidHit, "Asteroid_explosion_1.wav");
-		loadEventSound(context, GameEvent.SpaceshipHit, "Spaceship_explosion.wav");
-		loadEventSound(context, GameEvent.LaserFired, "Laser_shoot.wav");
 		loadEventSound(context, GameEvent.HitBird, "bird_sound.wav");
 		loadEventSound(context, GameEvent.BulletFired, "bullet_shoot.mp3");
-		loadEventSound(context, GameEvent.ButtonSound, "button_touch.wav");
 		loadEventSound(context, GameEvent.GameOver, "game_over.wav");
 		loadEventSound(context, GameEvent.HitPlane, "plane_impact.wav");
 		loadEventSound(context, GameEvent.TorpedoFired, "torpedo_shoot.wav");
 	}
 
-	private void loadMusic() {
+	public void loadMusic(String music) {
+		if(music.equals(currentSound)){return;}
 		try {
+			currentSound=music;
+			if(bgPlayer!=null){
+				bgPlayer.stop();
+			}
+			bgPlayer=new MediaPlayer();
 			// Important to not reuse it. It can be on a strange state
-			bgPlayer.stop();
-			AssetFileDescriptor afd = context.getAssets().openFd("sfx/Riccardo_Colombo_-_11_-_Something_mental.mp3");
+			AssetFileDescriptor afd = context.getAssets().openFd(currentSound);
 			bgPlayer.setDataSource(afd.getFileDescriptor(),
 					afd.getStartOffset(), afd.getLength());
 			bgPlayer.setLooping(true);
@@ -100,12 +101,9 @@ public final class SoundManager {
 		soundsMap.clear();		
 	}
 
-	private void unloadMenuMusic() {
+	private void unloadMusic() {
 		bgPlayer.stop();
 		bgPlayer.release();
 	}
 
-	private void unloadGameMusic(){
-
-	}
 }

@@ -28,6 +28,7 @@ public class Bird extends Sprite {
     public void init(GameEngine gameEngine) {
         // They initialize in a [-30, 30] degrees angle
         //double angle = gameEngine.random.nextDouble()*Math.PI/3d-Math.PI/6d;
+        this.speed = (gameEngine.random.nextInt(200 - 100) + 100) * pixelFactor/1000d;
         speedX = -speed;
         speedY = 0;
         // Asteroids initialize in the central 50% of the screen horizontally

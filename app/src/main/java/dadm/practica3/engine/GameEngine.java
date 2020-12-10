@@ -88,6 +88,7 @@ public class GameEngine {
     }
 
     public void pauseGame() {
+        soundManager.loadMusic("sfx/menu_theme.mp3");
         if (theUpdateThread != null) {
             theUpdateThread.pauseGame();
         }
@@ -97,6 +98,7 @@ public class GameEngine {
     }
 
     public void resumeGame() {
+        soundManager.loadMusic("sfx/game_theme.wav");
         if (theUpdateThread != null) {
             theUpdateThread.resumeGame();
         }

@@ -30,6 +30,7 @@ public class ScaffoldActivity extends AppCompatActivity {
         }
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         soundManager = new SoundManager(getApplicationContext());
+        soundManager.loadMusic("sfx/menu_theme.mp3");
     }
 
     public SoundManager getSoundManager() {
@@ -39,11 +40,13 @@ public class ScaffoldActivity extends AppCompatActivity {
     public void startGame() {
         // Navigate the the game fragment, which makes the start automatically
         navigateToFragment( new GameFragment());
+        soundManager.loadMusic("sfx/game_theme.wav");
     }
 
     public void startMenuInicio() {
         // Navigate the the game fragment, which makes the start automatically
         navigateToFragment( new MainMenuFragment());
+        soundManager.loadMusic("sfx/menu_theme.mp3");
     }
 
     public void startSeleccionNave() {
@@ -54,6 +57,7 @@ public class ScaffoldActivity extends AppCompatActivity {
     public void startPuntuaciones() {
         // Navigate the the game fragment, which makes the start automatically
         navigateToFragment( new PuntuacionFragment());
+        soundManager.loadMusic("sfx/menu_theme.mp3");
     }
 
     private void navigateToFragment(BaseFragment dst) {

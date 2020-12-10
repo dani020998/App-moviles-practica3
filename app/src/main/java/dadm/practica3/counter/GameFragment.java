@@ -102,6 +102,7 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.btn_changeColor:
                 theGameEngine.setSpaceShipPlayerColor();
+                btn_changeColor.setEnabled(false);
                 new CountDownTimer(TIME_BETWEEN_CHANGE_COLOR, 1000){
                     @Override
                     public void onTick(long l) {
