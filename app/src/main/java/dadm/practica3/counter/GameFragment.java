@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Space;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ import dadm.practica3.space.nube;
 public class GameFragment extends BaseFragment implements View.OnClickListener {
     private GameEngine theGameEngine;
     public TextView textPutuacion;
+    public ImageView img_vida3, img_vida2, img_vida1;
     private static GameFragment frag;
 
     public GameFragment() {
@@ -47,6 +49,9 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         frag=this;
         textPutuacion= (TextView)view.findViewById(R.id.Txt_Puntuacion);
+        img_vida1= (ImageView) view.findViewById(R.id.img_vida1);
+        img_vida2= (ImageView) view.findViewById(R.id.img_vida2);
+        img_vida3= (ImageView) view.findViewById(R.id.img_vida3);
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.btn_play_pause).setOnClickListener(this);
         view.findViewById(R.id.btn_shoot).setOnClickListener(this);
@@ -168,6 +173,19 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
     }
     public void CambioPuntuacion(String newText){
         textPutuacion.setText(newText);
+    }
+    public void Actualizar_vida(int n_vidas){
+        switch (n_vidas){
+            case 2:
+                img_vida3.setVisibility(getView().INVISIBLE);
+                break;
+            case 1:
+                img_vida2.setVisibility(getView().INVISIBLE);
+                break;
+            case 0:
+                img_vida1.setVisibility(getView().INVISIBLE);
+                break;
+        }
     }
 
 }

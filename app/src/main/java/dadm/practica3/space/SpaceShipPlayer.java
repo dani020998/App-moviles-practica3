@@ -25,6 +25,7 @@ public class SpaceShipPlayer extends Sprite {
     private int maxY;
     private double speedFactor;
     private boolean shootTorpedo;
+    private int vidas;
 
 
     public SpaceShipPlayer(GameEngine gameEngine, int yellowTypePlane, int greenTypePlane){
@@ -36,7 +37,7 @@ public class SpaceShipPlayer extends Sprite {
         shootTorpedo=false;
         timeSinceLastTorpedoFire=TIME_BETWEEN_TORPEDOS;
         this.setColor("yellow");
-
+        vidas=3;
         initBulletPool(gameEngine);
     }
 
@@ -148,14 +149,17 @@ public class SpaceShipPlayer extends Sprite {
     @Override
     public void onCollision(GameEngine gameEngine, ScreenGameObject otherObject) {
         if (otherObject instanceof Bird && !((Bird) otherObject).getColor().equals(this.color)) {
-            gameEngine.removeGameObject(this);
             //gameEngine.stopGame();
             Bird b = (Bird) otherObject;
             b.removeObject(gameEngine);
             gameEngine.onGameEvent(GameEvent.SpaceshipHit);
-            GameController aaa;
-            aaa=GameController.get_GameController();
-            GameController.get_GameController().FinJuego(gameEngine);
+            vidas-=1;
+            GameController.get_GameController().frag.Actualizar_vida(vidas);
+            if(vidas==0) {
+                gameEngine.removeGameObject(this);
+                GameController.get_GameController().FinJuego(gameEngine);
+            }
+
         }
     }
 }
