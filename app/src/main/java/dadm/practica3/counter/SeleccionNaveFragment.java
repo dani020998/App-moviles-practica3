@@ -83,8 +83,10 @@ public class SeleccionNaveFragment extends BaseFragment implements View.OnClickL
 
     public static void Inicializar_aviones()
     {
-        nave_seleccionada[0]=R.drawable.plane_1_green;
-        nave_seleccionada[1]=R.drawable.plane_1_yellow;
+        if(nave_seleccionada[0]==0) {
+            nave_seleccionada[0] = R.drawable.plane_1_green;
+            nave_seleccionada[1] = R.drawable.plane_1_yellow;
+        }
     }
 
     @Override
