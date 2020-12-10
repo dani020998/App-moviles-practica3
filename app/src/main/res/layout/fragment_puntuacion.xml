@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#000000"
+            android:fontFamily="@font/acme"
             android:gravity="center"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
@@ -30,17 +31,19 @@
             android:id="@+id/Txt_Derrota_Victoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/acme"
             android:gravity="center"
             android:paddingTop="0dp"
             android:paddingBottom="0dp"
             android:text="Derrota/Victoria"
             android:textColor="#FFFFFF"
-            android:textSize="40sp"  />
+            android:textSize="40sp" />
 
         <TextView
             android:id="@+id/Txt_PuntuacionFinal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/acme"
             android:gravity="center"
             android:paddingTop="40dp"
             android:paddingBottom="50dp"
@@ -50,11 +53,13 @@
 
         <Button
             android:id="@+id/Btn_Volver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:background="#FFFFFF"
-            android:text="Volver a Inicio" />
+            android:background="@drawable/custom_button"
+            android:fontFamily="@font/acme"
+            android:text="Volver a Inicio"
+            android:textSize="16sp" />
     </LinearLayout>
 
 </FrameLayout>
