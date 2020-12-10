@@ -26,12 +26,6 @@ public abstract class Sprite extends ScreenGameObject {
 
     private long currentTime=0;
 
-
-    private int Spritewidth=0;
-
-
-    private AnimationDrawable spriteAnimation;
-
     private final Matrix matrix = new Matrix();
 
     protected Sprite (GameEngine gameEngine, int[] drawableResYellow, int[] drawableResGreen) {
@@ -46,7 +40,7 @@ public abstract class Sprite extends ScreenGameObject {
         Drawable spriteDrawableGreen = r.getDrawable(drawableResGreen[0]);
 
         this.greenHeight = (int) (spriteDrawableGreen.getIntrinsicHeight() * this.pixelFactor);
-        this.greenWidth= (int) (spriteDrawableGreen.getIntrinsicWidth() * this.pixelFactor);
+        this.greenWidth= (int) (spriteDrawableGreen.getMinimumWidth() * this.pixelFactor);
 
         this.yellowHeight = (int) (spriteDrawableYellow.getIntrinsicHeight() * this.pixelFactor);
         this.yellowWidth= (int) (spriteDrawableYellow.getIntrinsicWidth() * this.pixelFactor);
@@ -58,8 +52,6 @@ public abstract class Sprite extends ScreenGameObject {
             this.bitmapYellow[i] = ((BitmapDrawable) spriteDrawableYellow).getBitmap();
             this.bitmapGreen[i] = ((BitmapDrawable) spriteDrawableGreen).getBitmap();
         }
-
-        Spritewidth= spriteDrawableGreen.getIntrinsicWidth();
     }
 
     public void setColor(String color){
@@ -114,8 +106,5 @@ public abstract class Sprite extends ScreenGameObject {
             }
             this.currentTime=0;
         }
-    }
-    public int getwidth(){
-        return Spritewidth;
     }
 }

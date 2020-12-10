@@ -11,14 +11,12 @@ public class montana1 extends Sprite {
 
     private double speedFactor;
     private int posicion;
-    private int width;
 
     public montana1(GameEngine gameEngine, String color, int pos) {
         super(gameEngine,new int[]{R.drawable.montana1},new int[]{R.drawable.montana1});
         posicion=pos;
         speedFactor = -pixelFactor * 100d / 900d;
         this.setColor(color);
-        width=this.getwidth()+154;
     }
 
     @Override

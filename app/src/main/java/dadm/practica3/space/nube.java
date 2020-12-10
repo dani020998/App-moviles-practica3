@@ -11,14 +11,12 @@ public class nube extends Sprite {
 
     private double speedFactor;
     private int posicion;
-    private int width;
 
     public nube(GameEngine gameEngine, String color, int pos) {
         super(gameEngine,new int[]{R.drawable.nube},new int[]{R.drawable.nube});
         posicion=pos;
         speedFactor = -pixelFactor * 100d / 4000d;
         this.setColor(color);
-        width=this.getwidth()+154;
     }
 
     @Override

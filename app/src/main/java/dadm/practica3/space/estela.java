@@ -11,14 +11,12 @@ public class estela extends Sprite {
 
     private double speedFactor;
     private int posicion;
-    private int width;
 
     public estela(GameEngine gameEngine, String color, int pos) {
         super(gameEngine,new int[]{R.drawable.estela},new int[]{R.drawable.estela});
         posicion=pos;
         speedFactor = -pixelFactor * 100d / 400d;
         this.setColor(color);
-        width=this.getwidth()+154;
     }
 
     @Override
