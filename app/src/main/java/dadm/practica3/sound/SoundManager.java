@@ -101,8 +101,8 @@ public final class SoundManager {
 	}
 
 	private void unloadMenuMusic() {
-		bgPlayerMenu.stop();
-		bgPlayerMenu.release();
+		bgPlayer.stop();
+		bgPlayer.release();
 	}
 
 	private void unloadGameMusic(){
