@@ -40,7 +40,7 @@ public abstract class Sprite extends ScreenGameObject {
         Drawable spriteDrawableGreen = r.getDrawable(drawableResGreen[0]);
 
         this.greenHeight = (int) (spriteDrawableGreen.getIntrinsicHeight() * this.pixelFactor);
-        this.greenWidth= (int) (spriteDrawableGreen.getMinimumWidth() * this.pixelFactor);
+        this.greenWidth= (int) (spriteDrawableGreen.getIntrinsicWidth() * this.pixelFactor);
 
         this.yellowHeight = (int) (spriteDrawableYellow.getIntrinsicHeight() * this.pixelFactor);
         this.yellowWidth= (int) (spriteDrawableYellow.getIntrinsicWidth() * this.pixelFactor);
