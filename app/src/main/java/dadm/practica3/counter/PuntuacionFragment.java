@@ -71,7 +71,11 @@ public class PuntuacionFragment extends BaseFragment implements View.OnClickList
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.Btn_Volver).setOnClickListener(this);
         ((TextView) view.findViewById(R.id.Txt_PuntuacionFinal)).setText(""+GameController.get_GameController().getPuntuacion());
-
+        if(GameController.get_GameController().getPuntuacion()>=GameController.get_GameController().getPuntuacionVictoria()){
+            ((TextView) view.findViewById(R.id.Txt_Derrota_Victoria)).setText("Victoria");
+        }else{
+            ((TextView) view.findViewById(R.id.Txt_Derrota_Victoria)).setText("Derrota");
+        }
     }
 
     @Override

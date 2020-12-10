@@ -27,6 +27,17 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/Txt_Derrota_Victoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:text="Derrota/Victoria"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"  />
+
+        <TextView
             android:id="@+id/Txt_PuntuacionFinal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

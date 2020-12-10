@@ -70,7 +70,7 @@ public class Torpedo extends Sprite {
             gameEngine.onGameEvent(GameEvent.AsteroidHit);
 
             // Add some score
-            GameController.anadir_puntuacion();
+            GameController.anadir_puntuacion(gameEngine);
             GameController.frag.CambioPuntuacion("Puntuacion: "+ GameController.getPuntuacion());
         }
     }

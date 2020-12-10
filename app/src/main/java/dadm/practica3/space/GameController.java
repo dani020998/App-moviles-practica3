@@ -23,6 +23,7 @@ public class GameController extends GameObject {
     private List<Bird> birdYellowPool = new ArrayList<Bird>();
     private List<Bird> birdGreenPool = new ArrayList<Bird>();
     private int enemiesSpawned;
+    private int puntuacionVictoria=2000;
 
     public GameController(GameEngine gameEngine, GameFragment GameFrag) {
         cont=this;
@@ -83,8 +84,11 @@ public class GameController extends GameObject {
         }
     }
 
-    public void anadir_puntuacion(){
+    public void anadir_puntuacion(GameEngine gameEngine){
         puntuacion+=50;
+        if (puntuacion>=puntuacionVictoria){
+            FinJuego(gameEngine);
+        }
     }
 
     public void FinJuego(GameEngine gameEngine){
@@ -101,4 +105,5 @@ public class GameController extends GameObject {
     public int getPuntuacion(){
         return puntuacion;
     }
+    public int getPuntuacionVictoria(){return puntuacionVictoria;}
 }
