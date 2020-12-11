@@ -33,6 +33,18 @@ public class ScaffoldActivity extends AppCompatActivity {
         soundManager.loadMusic("sfx/menu_theme.mp3");
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        soundManager.stopMusic();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        soundManager.resumeMusic();
+    }
+
     public SoundManager getSoundManager() {
         return soundManager;
     }

@@ -95,6 +95,34 @@ public final class SoundManager {
 		}
 	}
 
+	public void stopMusic(){
+		unloadSounds();
+		if(bgPlayer!=null){
+			bgPlayer.stop();
+		}
+	}
+
+	public void resumeMusic(){
+		loadSounds();
+		try {
+			if(bgPlayer!=null){
+				bgPlayer.stop();
+			}
+			bgPlayer=new MediaPlayer();
+			// Important to not reuse it. It can be on a strange state
+			AssetFileDescriptor afd = context.getAssets().openFd(currentSound);
+			bgPlayer.setDataSource(afd.getFileDescriptor(),
+					afd.getStartOffset(), afd.getLength());
+			bgPlayer.setLooping(true);
+			bgPlayer.setVolume(DEFAULT_MUSIC_VOLUME, DEFAULT_MUSIC_VOLUME);
+			bgPlayer.prepare();
+			bgPlayer.start();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private void unloadSounds() {
 		soundPool.release();
 		soundPool = null;
